@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export default function AnunciarCarga({navigation}) {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your appsss!</Text>
