@@ -1,4 +1,6 @@
 # Projeto_Frota
+npm install
+
 
 npm start
 npx expo install react-dom react-native-web @expo/metro-runtime
