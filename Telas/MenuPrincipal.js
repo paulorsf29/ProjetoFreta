@@ -4,24 +4,22 @@ export default function MenuPrincipal({navigation}) {
   return (
     <View style={styles.container}>
 
-    <View >
-      <Text>O Que é Frota</Text>
-      <Text>Frota é uma ferramenta de gestão de gestão de fretes com confiabilidade e segurança</Text>
+      <View style={styles.textContainer}>
+        <Text>O que é Frota</Text>
+        <Text>Frota é uma ferramenta de gestão de fretes com confiabilidade e segurança</Text>
+      </View>
 
-    </View>
+      <View style={styles.textContainer}>
+        <Text>{`\n`}</Text>
+        <Button title="Entrar como motorista" onPress={() => navigation.navigate('CadastroMotorista')}></Button>
+        <Text>{`\n`}</Text>
+        <Button title="Entrar como cliente" onPress={() => navigation.navigate('CadastroCliente')}></Button>
+      </View>
 
-    <View>
-      <Text></Text>
-      <Button title="Entrar como motorista" onPress={() => navigation.navigate('CadastroMotorista')}></Button>
-      <Text></Text>
-      <Text></Text>
-      <Button title="Entrar como cliente" onPress={() => navigation.navigate('CadastroCliente')}></Button>
-    </View>
-
-    <View>
-      <Text>Quem somos</Text>
-      <Text>...</Text>
-    </View>
+      <View style={styles.textContainer}>
+        <Text>Quem somos</Text>
+        <Text>...</Text>
+      </View>
 
     </View>
   );
@@ -34,4 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textContainer: {
+    alignItems: 'center'
+  }
 });
