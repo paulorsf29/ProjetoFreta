@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import {TextInput, Button } from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {StyleSheet,  Image} from 'react-native';
-import * as anexo from 'react-native-image-picker'; 
+import * as anex from 'react-native-image-picker';
 
 export default function CadastrarVeiculo({ navigation }) {
   const [modelo, setModelo] = useState('');
@@ -25,7 +25,7 @@ export default function CadastrarVeiculo({ navigation }) {
       setMensagemErro('Informações inválidas, digite novamente');
     } else {
       setMensagemErro('');
-      alert(`Veículo (${placa}) cadastrado com sucesso.`);
+      alert("Veículo" + (placa) + "cadastrado com sucesso.");
     }
   }
 
@@ -52,7 +52,7 @@ export default function CadastrarVeiculo({ navigation }) {
       }
     }
 
-    anexo.launchImageLibrary(opcoes, respostaCallback);
+    anex.launchImageLibrary(opcoes, respostaCallback);
   }
 
   function removerImagem() {
@@ -122,8 +122,6 @@ export default function CadastrarVeiculo({ navigation }) {
     <Button title="Remover imagem" onPress={removerImagem} />
   </View>
 )}
-
-
 
       {mensagemErro ? <Text style={styles.erro}>{mensagemErro}</Text> : null}
       <Button title="Cadastrar" onPress={cadastrar} />
