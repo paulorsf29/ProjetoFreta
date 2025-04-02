@@ -95,7 +95,7 @@ export default function CadastroCliente({navigation}) {
 
     
     if (informacoesValidas) {
-      navigation.navigate('MenuCliente')
+      navigation.navigate('CadastrarLocal')
     }
   }
 
