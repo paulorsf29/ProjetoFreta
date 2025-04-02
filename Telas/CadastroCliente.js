@@ -69,7 +69,7 @@ export default function CadastroCliente({navigation}) {
     
     if (informacoesValidas) {
       setExibirCadastro(false);
-      navigation.navigate('CadastrarVeiculo');
+      navigation.navigate('DadosEmpresariais');
     }
   }
 
@@ -95,7 +95,7 @@ export default function CadastroCliente({navigation}) {
 
     
     if (informacoesValidas) {
-      navigation.navigate('CadastrarLocal')
+      navigation.navigate('MenuCliente');
     }
   }
 
