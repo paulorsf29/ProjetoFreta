@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
-export default function CadastroMotorista({navigation}) {
+export default function CadastroCliente({navigation}) {
   const [exibirCadastro, setExibirCadastro] = useState(false);
 
   const [nome, setNome] = useState("")
@@ -69,7 +69,7 @@ export default function CadastroMotorista({navigation}) {
     
     if (informacoesValidas) {
       setExibirCadastro(false);
-      navigation.navigate('CadastrarVeiculo');
+      navigation.navigate('DadosEmpresariais');
     }
   }
 
@@ -95,7 +95,7 @@ export default function CadastroMotorista({navigation}) {
 
     
     if (informacoesValidas) {
-      navigation.navigate('MenuCliente')
+      navigation.navigate('MenuCliente');
     }
   }
 

@@ -11,6 +11,8 @@ import MenuCliente from './Telas/MenuCliente';
 import AnunciarCarga from './Telas/AnunciarCarga';
 import AnuncioDeCarga from './Telas/AnuncioDeCarga';
 import AcompanharCarga from './Telas/AcompanharCarga';
+import DadosEmpresariais from './Telas/DadosEmpresariais';
+import QuemSomos from './Telas/QuemSomos'
 
 const Stack = createStackNavigator();
 
@@ -27,6 +29,8 @@ export default function App() {
         <Stack.Screen name='AnunciarCarga' component={AnunciarCarga} />
         <Stack.Screen name='AnuncioDeCarga' component={AnuncioDeCarga} />
         <Stack.Screen name='AcompanharCarga' component={AcompanharCarga} />
+        <Stack.Screen name='DadosEmpresariais' component={DadosEmpresariais}/>
+        <Stack.Screen name='QuemSomos' component={QuemSomos}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
