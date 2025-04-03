@@ -186,124 +186,174 @@ function CategoriaCnh(texto) {
 }
 
   return (
+
+    /*const [nome, setNome] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
+
+  const [nacionalidade, setNacionalidade] = useState("");
+  const [cnhCategoria, setCnhCategoria] = useState("");
+  const [cnhEmissao, setCnhEmissao] = useState("");
+  const [cnhValidade, setCnhValidade] = useState("");
+  const [rg, setRg] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [numeroRegistro, setNumeroRegistro] = useState("");
+  const [emailLogin, setEmailLogin] = useState("");
+  const [senhaLogin, setSenhaLogin] = useState("");
+
+  const [erroNome, setErroNome] = useState("");
+  const [erroTelefone, setErroTelefone] = useState("");
+  const [erroEmail, setErroEmail] = useState("");
+  const [erroSenha, setErroSenha] = useState("");
+  const [erroConfirmacaoSenha, setErroConfirmacaoSenha] = useState("");
+
+  const [erroNacionalidade, setErroNacionalidade] = useState("");
+  const [erroCnhCategoria, setErroCnhCategoria] = useState("");
+  const [erroCnhEmissao, setErroCnhEmissao] = useState("");
+  const [erroCnhValidade, setErroCnhValidade] = useState("");
+  const [erroRg, setErroRg] = useState("");
+  const [erroCpf, setErroCpf] = useState("");
+
+  */
     <ScrollView contentContainerStyle={styles.container}>
       {exibirCadastro ? (
         <>
-          <Text style={styles.titulo}>Cadastro de Motorista</Text>
+        <Text style={styles.titulo}>Cadastro de Motorista</Text>
 
-          <TextInput 
-          placeholder="Nome"
-           style={styles.input} 
-           onChangeText={setNome} 
-           />
-          <Text style={styles.erro}>{erroNome}</Text>
+        <TextInput
+         placeholder="Nome"
+         style={styles.input}
+         onChangeText={setNome}
+         value={nome}/>
+        <Text style={styles.erro}>{erroNome}</Text>
 
-          <TextInput 
-          placeholder="Telefone"
-           keyboardType="phone-pad" 
-           style={styles.input} 
-           onChangeText={setTelefone} 
-           />
-          <Text style={styles.erro}>{erroTelefone}</Text>
+        <TextInput
+         placeholder="Telefone"
+         keyboardType="phone-pad"
+         style={styles.input}
+         onChangeText={setTelefone}
+         value={telefone}/>
+        <Text style={styles.erro}>{erroTelefone}</Text>
 
-          <TextInput
-           placeholder="Email"
-            keyboardType="email-address"
-             style={styles.input} 
-             onChangeText={setEmail} 
-             />
-          <Text style={styles.erro}>{erroEmail}</Text>
+        <TextInput
+         placeholder="Email"
+         keyboardType="email-address"
+         style={styles.input}
+         onChangeText={setEmail}
+         value={email}/>
+        <Text style={styles.erro}>{erroEmail}</Text>
 
-          <TextInput 
-          placeholder="Senha"
-           secureTextEntry style={styles.input} 
-           onChangeText={setSenha} 
-           />
-          <Text style={styles.erro}>{erroSenha}</Text>
+        <TextInput
+         placeholder="Senha" 
+         secureTextEntry
+         style={styles.input}
+         onChangeText={setSenha}
+         value={senha}/>
+        <Text style={styles.erro}>{erroSenha}</Text>
 
-          <TextInput 
-          placeholder="Confirmar Senha"
-           secureTextEntry style={styles.input} 
-           onChangeText={setConfirmacaoSenha} 
-           />
-          <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
+        <TextInput
+         placeholder="Confirmar Senha"
+         secureTextEntry
+         style={styles.input}
+         onChangeText={setConfirmacaoSenha}
+         value={confirmacaoSenha}/>
+        <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
 
-          <TextInput
-           placeholder="Nacionalidade"
-           style={styles.input}
-           onChangeText={setNacionalidade} 
-           />
-          <Text style={styles.erro}>{erroNacionalidade}</Text>
+        <TextInput
+         placeholder="Nacionalidade"
+         style={styles.input}
+         onChangeText={setNacionalidade}
+         value={nacionalidade}/>
+        <Text style={styles.erro}>{erroNacionalidade}</Text>
 
-          <TextInput 
-            placeholder="Categoria CNH" 
-            style={styles.input} 
-            onChangeText={CategoriaCnh} 
-          />
-          <Text style={styles.erro}>{erroCnhCategoria}</Text>
+        <TextInput
+         placeholder="Categoria CNH"
+         style={styles.input}
+         onChangeText={CategoriaCnh}
+         value={cnhCategoria}/>
+        <Text style={styles.erro}>{erroCnhCategoria}</Text>
 
 
-          <TextInput 
-          placeholder="Data de Emissão CNH"
-           keyboardType="numeric"
-          style={styles.input} onChangeText={setCnhEmissao} 
-          />
-          <Text style={styles.erro}>{erroCnhEmissao}</Text>
+        <TextInput
+         placeholder="Data de Emissão CNH"
+         keyboardType="numeric"
+         style={styles.input}
+         onChangeText={setCnhEmissao}
+         value={cnhEmissao}/>
+        <Text style={styles.erro}>{erroCnhEmissao}</Text>
 
-          <TextInput 
-          placeholder="Data de Validade CNH"
-           keyboardType="numeric" style={styles.input}
-            onChangeText={setCnhValidade} 
-            />
-          <Text style={styles.erro}>{erroCnhValidade}</Text>
+        <TextInput
+         placeholder="Data de Validade CNH"
+         keyboardType="numeric"
+         style={styles.input}
+         onChangeText={setCnhValidade}
+         value={cnhValidade}/>
+        <Text style={styles.erro}>{erroCnhValidade}</Text>
 
-          <TextInput 
-          placeholder="RG" 
+        <TextInput
+         placeholder="RG"
+         keyboardType="numeric"
+         style={styles.input}
+         onChangeText={setRg}
+         value={rg}/>
+        <Text style={styles.erro}>{erroRg}</Text>
+
+        <TextInput
+         placeholder="CPF"
+         keyboardType="numeric"
+         style={styles.input}
+         onChangeText={setCpf}
+         value={cpf}/>
+        <Text style={styles.erro}>{erroCpf}</Text>
+
+        <Button title="Próximos passos" onPress={continuarCadastro} />
+
+        <TouchableOpacity onPress={() => setExibirCadastro(false)}>
+          <Text style={styles.link}>Voltar para login</Text>
+        </TouchableOpacity>
+      </>
+    ) : (
+      <>
+        <Text style={styles.titulo}>Entrar na sua conta</Text>
+
+        <TextInput
+         placeholder="Email"
+         keyboardType="email-address"
+         style={styles.input}
+         onChangeText={setEmailLogin}
+         value={emailLogin}
+        />
+        <Text style={styles.erro}>{erroEmailLogin}</Text>
+
+        <TextInput
+         placeholder="Senha"
+         secureTextEntry
+         style={styles.input}
+         onChangeText={setSenhaLogin}
+         value={senhaLogin}
+        />
+        <Text style={styles.erro}>{erroSenhaLogin}</Text>
+
+        <TextInput
+          placeholder="Número de Registro"
           keyboardType="numeric"
-           style={styles.input}
-            onChangeText={setRg} />
-          <Text style={styles.erro}>{erroRg}</Text>
+          style={styles.input}
+          onChangeText={NumeroRegistro}
+          value={numeroRegistro}
+        />
 
-          <TextInput 
-          placeholder="CPF"
-           keyboardType="numeric" 
-           style={styles.input} onChangeText={setCpf} />
-          <Text style={styles.erro}>{erroCpf}</Text>
+        <Button title="Entrar" onPress={login} />
 
-          <Button title="Próximos passos" onPress={continuarCadastro} />
+        <TouchableOpacity>
+          <Text style={styles.link}>Esqueci minha senha</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => setExibirCadastro(false)}>
-            <Text style={styles.link}>Voltar para login</Text>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <>
-          <Text style={styles.titulo}>Entrar na sua conta</Text>
-
-          <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} onChangeText={setEmailLogin} />
-          <Text style={styles.erro}>{erroEmailLogin}</Text>
-
-          <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
-          <Text style={styles.erro}>{erroSenhaLogin}</Text>
-
-          <TextInput 
-            placeholder="Número de Registro" 
-            keyboardType="numeric" 
-            style={styles.input}
-            onChangeText={NumeroRegistro}
-            value={numeroRegistro} 
-          />
-
-          <Button title="Entrar" onPress={login} />
-
-          <TouchableOpacity>
-            <Text style={styles.link}>Esqueci minha senha</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => setExibirCadastro(true)}>
-            <Text style={styles.link}>Não possui uma conta?</Text>
-          </TouchableOpacity>
-        </>
+        <TouchableOpacity onPress={() => setExibirCadastro(true)}>
+          <Text style={styles.link}>Não possui uma conta?</Text>
+        </TouchableOpacity>
+      </>
       )}
     </ScrollView>
   );
