@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native';
 import {Button} from 'react-native'; 
 
 export default function CadastroMotorista({ navigation }) {
+
   const [exibirCadastro, setExibirCadastro] = useState(false);
 
   const [nome, setNome] = useState("");
@@ -12,7 +13,6 @@ export default function CadastroMotorista({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
-
   const [nacionalidade, setNacionalidade] = useState("");
   const [cnhCategoria, setCnhCategoria] = useState("");
   const [cnhEmissao, setCnhEmissao] = useState("");
@@ -23,18 +23,18 @@ export default function CadastroMotorista({ navigation }) {
   const [emailLogin, setEmailLogin] = useState("");
   const [senhaLogin, setSenhaLogin] = useState("");
 
-  const [erroNome, setErroNome] = useState("");
-  const [erroTelefone, setErroTelefone] = useState("");
-  const [erroEmail, setErroEmail] = useState("");
-  const [erroSenha, setErroSenha] = useState("");
-  const [erroConfirmacaoSenha, setErroConfirmacaoSenha] = useState("");
+  const [erroNome, setErroNome] = useState("\n");
+  const [erroTelefone, setErroTelefone] = useState("\n");
+  const [erroEmail, setErroEmail] = useState("\n");
+  const [erroSenha, setErroSenha] = useState("\n");
+  const [erroConfirmacaoSenha, setErroConfirmacaoSenha] = useState("\n");
 
-  const [erroNacionalidade, setErroNacionalidade] = useState("");
-  const [erroCnhCategoria, setErroCnhCategoria] = useState("");
-  const [erroCnhEmissao, setErroCnhEmissao] = useState("");
-  const [erroCnhValidade, setErroCnhValidade] = useState("");
-  const [erroRg, setErroRg] = useState("");
-  const [erroCpf, setErroCpf] = useState("");
+  const [erroNacionalidade, setErroNacionalidade] = useState("\n");
+  const [erroCnhCategoria, setErroCnhCategoria] = useState("\n");
+  const [erroCnhEmissao, setErroCnhEmissao] = useState("\n");
+  const [erroCnhValidade, setErroCnhValidade] = useState("\n");
+  const [erroRg, setErroRg] = useState("\n");
+  const [erroCpf, setErroCpf] = useState("\n");
 
   const [erroEmailLogin, setErroEmailLogin] = useState("");
   const [erroSenhaLogin, setErroSenhaLogin] = useState("");
@@ -218,9 +218,9 @@ function login() {
 }
 
 function NumeroRegistro(texto) {
-  let formatacao = texto; 
+  let formatacao = texto;
   if (texto.length > 11) {
-    formatacao = texto.substring(0, 11); 
+    formatacao = texto.substring(0, 11);
   }
   setregistro(formatacao); 
 }
@@ -323,11 +323,16 @@ function formatarCpf(texto) {
 
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={{flex: 1}} contentContainerStyle={styles.container}>
       {exibirCadastro ? (
         <>
           <Text style={styles.titulo}>Cadastro de Motorista</Text>
 
+          <TextInput
+           placeholder="Nome"
+           style={styles.input}
+           onChangeText={setNome}
+           value={nome}/>
           <TextInput
            placeholder="Nome"
            style={styles.input}
@@ -348,8 +353,18 @@ function formatarCpf(texto) {
            style={styles.input}
            onChangeText={setEmail}
            value={email}/>
+           keyboardType="email-address"
+           style={styles.input}
+           onChangeText={setEmail}
+           value={email}/>
           <Text style={styles.erro}>{erroEmail}</Text>
 
+          <TextInput
+           placeholder="Senha" 
+           secureTextEntry
+           style={styles.input}
+           onChangeText={setSenha}
+           value={senha}/>
           <TextInput
            placeholder="Senha" 
            secureTextEntry
@@ -364,6 +379,12 @@ function formatarCpf(texto) {
            style={styles.input}
            onChangeText={setConfirmacaoSenha}
            value={confirmacaoSenha}/>
+          <TextInput
+           placeholder="Confirmar Senha"
+           secureTextEntry
+           style={styles.input}
+           onChangeText={setConfirmacaoSenha}
+           value={confirmacaoSenha}/>
           <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
 
           <TextInput
@@ -371,8 +392,15 @@ function formatarCpf(texto) {
            style={styles.input}
            onChangeText={setNacionalidade}
            value={nacionalidade}/>
+           onChangeText={setNacionalidade}
+           value={nacionalidade}/>
           <Text style={styles.erro}>{erroNacionalidade}</Text>
 
+          <TextInput
+           placeholder="Categoria CNH"
+           style={styles.input}
+           onChangeText={CategoriaCnh}
+           value={cnhCategoria}/>
           <TextInput
            placeholder="Categoria CNH"
            style={styles.input}
@@ -383,12 +411,23 @@ function formatarCpf(texto) {
 
           <TextInput
            placeholder="Data de Emissão CNH"
+          <TextInput
+           placeholder="Data de Emissão CNH"
            keyboardType="numeric"
+           style={styles.input}
+           onChangeText={setCnhEmissao}
+           value={cnhEmissao}/>
            style={styles.input}
            onChangeText={setCnhEmissao}
            value={cnhEmissao}/>
           <Text style={styles.erro}>{erroCnhEmissao}</Text>
 
+          <TextInput
+           placeholder="Data de Validade CNH"
+           keyboardType="numeric"
+           style={styles.input}
+           onChangeText={setCnhValidade}
+           value={cnhValidade}/>
           <TextInput
            placeholder="Data de Validade CNH"
            keyboardType="numeric"
@@ -431,8 +470,22 @@ function formatarCpf(texto) {
            onChangeText={setEmailLogin}
            value={emailLogin}
           />
+          <TextInput
+           placeholder="Email"
+           keyboardType="email-address"
+           style={styles.input}
+           onChangeText={setEmailLogin}
+           value={emailLogin}
+          />
           <Text style={styles.erro}>{erroEmailLogin}</Text>
 
+          <TextInput
+           placeholder="Senha"
+           secureTextEntry
+           style={styles.input}
+           onChangeText={setSenhaLogin}
+           value={senhaLogin}
+          />
           <TextInput
            placeholder="Senha"
            secureTextEntry
