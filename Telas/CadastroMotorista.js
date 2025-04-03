@@ -191,83 +191,90 @@ function CategoriaCnh(texto) {
         <>
           <Text style={styles.titulo}>Cadastro de Motorista</Text>
 
-          <TextInput 
-          placeholder="Nome"
-           style={styles.input} 
-           onChangeText={setNome} 
-           />
+          <TextInput
+           placeholder="Nome"
+           style={styles.input}
+           onChangeText={setNome}
+           value={nome}/>
           <Text style={styles.erro}>{erroNome}</Text>
 
-          <TextInput 
-          placeholder="Telefone"
-           keyboardType="phone-pad" 
-           style={styles.input} 
-           onChangeText={setTelefone} 
-           />
+          <TextInput
+           placeholder="Telefone"
+           keyboardType="phone-pad"
+           style={styles.input}
+           onChangeText={setTelefone}
+           value={telefone}/>
           <Text style={styles.erro}>{erroTelefone}</Text>
 
           <TextInput
            placeholder="Email"
-            keyboardType="email-address"
-             style={styles.input} 
-             onChangeText={setEmail} 
-             />
+           keyboardType="email-address"
+           style={styles.input}
+           onChangeText={setEmail}
+           value={email}/>
           <Text style={styles.erro}>{erroEmail}</Text>
 
-          <TextInput 
-          placeholder="Senha"
-           secureTextEntry style={styles.input} 
-           onChangeText={setSenha} 
-           />
+          <TextInput
+           placeholder="Senha" 
+           secureTextEntry
+           style={styles.input}
+           onChangeText={setSenha}
+           value={senha}/>
           <Text style={styles.erro}>{erroSenha}</Text>
 
-          <TextInput 
-          placeholder="Confirmar Senha"
-           secureTextEntry style={styles.input} 
-           onChangeText={setConfirmacaoSenha} 
-           />
+          <TextInput
+           placeholder="Confirmar Senha"
+           secureTextEntry
+           style={styles.input}
+           onChangeText={setConfirmacaoSenha}
+           value={confirmacaoSenha}/>
           <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
 
           <TextInput
            placeholder="Nacionalidade"
            style={styles.input}
-           onChangeText={setNacionalidade} 
-           />
+           onChangeText={setNacionalidade}
+           value={nacionalidade}/>
           <Text style={styles.erro}>{erroNacionalidade}</Text>
 
-          <TextInput 
-            placeholder="Categoria CNH" 
-            style={styles.input} 
-            onChangeText={CategoriaCnh} 
-          />
+          <TextInput
+           placeholder="Categoria CNH"
+           style={styles.input}
+           onChangeText={CategoriaCnh}
+           value={cnhCategoria}/>
           <Text style={styles.erro}>{erroCnhCategoria}</Text>
 
 
-          <TextInput 
-          placeholder="Data de Emissão CNH"
+          <TextInput
+           placeholder="Data de Emissão CNH"
            keyboardType="numeric"
-          style={styles.input} onChangeText={setCnhEmissao} 
-          />
+           style={styles.input}
+           onChangeText={setCnhEmissao}
+           value={cnhEmissao}/>
           <Text style={styles.erro}>{erroCnhEmissao}</Text>
 
-          <TextInput 
-          placeholder="Data de Validade CNH"
-           keyboardType="numeric" style={styles.input}
-            onChangeText={setCnhValidade} 
-            />
+          <TextInput
+           placeholder="Data de Validade CNH"
+           keyboardType="numeric"
+           style={styles.input}
+           onChangeText={setCnhValidade}
+           value={cnhValidade}/>
           <Text style={styles.erro}>{erroCnhValidade}</Text>
 
-          <TextInput 
-          placeholder="RG" 
-          keyboardType="numeric"
+          <TextInput
+           placeholder="RG"
+           keyboardType="numeric"
            style={styles.input}
-            onChangeText={setRg} />
+           onChangeText={setRg}
+           value={rg}/>
           <Text style={styles.erro}>{erroRg}</Text>
 
-          <TextInput 
-          placeholder="CPF"
-           keyboardType="numeric" 
-           style={styles.input} onChangeText={setCpf} />
+          <TextInput
+           placeholder="CPF"
+           keyboardType="numeric"
+           style={styles.input}
+           onChangeText={setCpf}
+           value={cpf}/>
           <Text style={styles.erro}>{erroCpf}</Text>
 
           <Button title="Próximos passos" onPress={continuarCadastro} />
@@ -280,18 +287,30 @@ function CategoriaCnh(texto) {
         <>
           <Text style={styles.titulo}>Entrar na sua conta</Text>
 
-          <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} onChangeText={setEmailLogin} />
+          <TextInput
+           placeholder="Email"
+           keyboardType="email-address"
+           style={styles.input}
+           onChangeText={setEmailLogin}
+           value={emailLogin}
+          />
           <Text style={styles.erro}>{erroEmailLogin}</Text>
 
-          <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
+          <TextInput
+           placeholder="Senha"
+           secureTextEntry
+           style={styles.input}
+           onChangeText={setSenhaLogin}
+           value={senhaLogin}
+          />
           <Text style={styles.erro}>{erroSenhaLogin}</Text>
 
-          <TextInput 
-            placeholder="Número de Registro" 
-            keyboardType="numeric" 
+          <TextInput
+            placeholder="Número de Registro"
+            keyboardType="numeric"
             style={styles.input}
             onChangeText={NumeroRegistro}
-            value={numeroRegistro} 
+            value={numeroRegistro}
           />
 
           <Button title="Entrar" onPress={login} />
@@ -310,7 +329,7 @@ function CategoriaCnh(texto) {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, alignItems: "center", padding: 20 },
+  container: { height: 1, flexGrow: 1, alignItems: "center", padding: 20 },
   titulo: { fontSize: 20, fontWeight: "bold", marginBottom: 15 },
   input: { width: "80%", padding: 10, borderWidth: 1, marginVertical: 5, borderRadius: 5 },
   link: { color: "blue", marginTop: 10 },
