@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import {Text, View} from 'react-native';
-import {TextInput, Button } from 'react-native';
-import {TouchableOpacity} from 'react-native';
-import {StyleSheet,  Image} from 'react-native';
+import { Text, View, TextInput, Button, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import * as anex from 'react-native-image-picker';
 
 export default function CadastrarVeiculo({ navigation }) {
   const [modelo, setModelo] = useState('');
   const [placa, setPlaca] = useState('');
   const [capacidadeCarga, setCapacidadeCarga] = useState('');
-  const [rg, setRg] = useState('');
-  const [cpf, setCPF] = useState('');
+  const [cor, setCor] = useState('');
+  const [ano, setAno] = useState('');
   const [Cnh, setCNH] = useState(null);
   const [mensagemErro, setMensagemErro] = useState('');
-  const [tipoVeiculo, setTipoVeiculo] = useState(null); 
+  const [tipoVeiculo, setTipoVeiculo] = useState(null);
 
   function cadastrar() {
     if (!tipoVeiculo) {
@@ -21,11 +18,11 @@ export default function CadastrarVeiculo({ navigation }) {
       return;
     }
 
-    if (modelo === '' || placa === '' || capacidadeCarga === '' || rg === '' || cpf === '' || !Cnh) {
+    if (!modelo || !placa || !capacidadeCarga || !cor || !ano || !Cnh) {
       setMensagemErro('Informações inválidas, digite novamente');
     } else {
       setMensagemErro('');
-      alert("Veículo" + (placa) + "cadastrado com sucesso.");
+      alert(`Veículo (${placa}) cadastrado com sucesso.`);
     }
   }
 
@@ -63,65 +60,92 @@ export default function CadastrarVeiculo({ navigation }) {
     setTipoVeiculo(veiculo);
   }
 
+  function formatarPlaca(texto) {
+    let placaFormatada = texto.toUpperCase();
+    if (placaFormatada.length > 7) {
+      placaFormatada = placaFormatada.substring(0, 7);
+    }
+  
+    setPlaca(placaFormatada);
+  }
+
+  function formatarAno(texto) {
+
+    let anoFormatado = '';
+    for (let i = 0; i < texto.length; i++) {
+      if (texto[i] >= '0' && texto[i] <= '9') {
+        anoFormatado += texto[i];
+      }
+    }
+    let anoFinal = '';
+    for (let j = 0; j < anoFormatado.length; j++) {
+      if (j < 4) {
+        anoFinal += anoFormatado[j];
+      }
+    }
+  
+    setAno(anoFinal);
+  }
+  
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cadastro de Veículo</Text>
 
       <Text>Escolha o tipo de veículo:</Text>
-      <TouchableOpacity onPress={function () { selecionarTipo('Carro'); }}>
+      <TouchableOpacity onPress={() => selecionarTipo('Carro')}>
         <Text>Carro</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={function () { selecionarTipo('Caminhão'); }}>
+      <TouchableOpacity onPress={() => selecionarTipo('Caminhão')}>
         <Text>Caminhão</Text>
       </TouchableOpacity>
 
-      <TextInput 
-        placeholder="Modelo" 
-        style={styles.input} 
-        onChangeText={function (texto) { setModelo(texto); }} 
-        value={modelo} 
+      <TextInput
+        placeholder="Modelo"
+        style={styles.input}
+        onChangeText={setModelo}
+        value={modelo}
       />
 
-      <TextInput 
-        placeholder="Placa do Veículo" 
-        style={styles.input} 
-        onChangeText={function (texto) { setPlaca(texto); }} 
-        value={placa} 
-        autoCapitalize="characters" 
+      <TextInput
+        placeholder="Placa do Veículo"
+        style={styles.input}
+        onChangeText={formatarPlaca}
+        value={placa}
+        autoCapitalize="characters"
       />
 
-      <TextInput 
-        placeholder="Capacidade de Carga (kg)" 
-        style={styles.input} 
-        onChangeText={function (texto) { setCapacidadeCarga(texto); }} 
-        value={capacidadeCarga} 
-        keyboardType="numeric" 
+      <TextInput
+        placeholder="Cor do Veiculo"
+        style={styles.input}
+        onChangeText={setCor}
+        value={cor}
       />
 
-      <TextInput 
-        placeholder="RG" 
-        style={styles.input} 
-        onChangeText={function (texto) { setRg(texto); }} 
-        value={rg} 
-        keyboardType="numeric" 
+      <TextInput
+        placeholder="Ano do Veiculo"
+        style={styles.input}
+        onChangeText={formatarAno}
+        value={ano}
+        keyboardType="numeric"
       />
 
-      <TextInput 
-        placeholder="CPF" 
-        style={styles.input} 
-        onChangeText={function (texto) { setCPF(texto); }} 
-        value={cpf} 
-        keyboardType="numeric" 
+      <TextInput
+        placeholder="Capacidade de Carga (kg)"
+        style={styles.input}
+        onChangeText={setCapacidadeCarga}
+        value={capacidadeCarga}
+        keyboardType="numeric"
       />
 
-      <Button title="Anexar a foto de sua carteira de motorista aqui" onPress={SelecionarImagem} />
-      
+      <Button title="Anexe a sua CNH aqui" onPress={SelecionarImagem} />
+
       {Cnh && (
-  <View>
-    <Image source={{ uri: Cnh }} style={styles.image} />
-    <Button title="Remover imagem" onPress={removerImagem} />
-  </View>
-)}
+        <View>
+          <Image source={{ uri: Cnh }} style={styles.image} />
+          <Button title="Remover imagem" onPress={removerImagem} />
+        </View>
+      )}
 
       {mensagemErro ? <Text style={styles.erro}>{mensagemErro}</Text> : null}
       <Button title="Cadastrar" onPress={cadastrar} />

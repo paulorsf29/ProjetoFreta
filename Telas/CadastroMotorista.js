@@ -1,205 +1,318 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 
-export default function CadastroMotorista({navigation}) {
+export default function CadastroMotorista({ navigation }) {
   const [exibirCadastro, setExibirCadastro] = useState(false);
 
-  const [nome, setNome] = useState("")
-  const [telefone, setTelefone] = useState("")
-  const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
-  const [confirmacaoSenha, setConfirmacaoSenha] = useState("")
+  const [nome, setNome] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
 
-  const [erroNome, setErroNome] = useState("\n")
-  const [erroTelefone, setErroTelefone] = useState("\n")
-  const [erroEmail, setErroEmail] = useState("\n")
-  const [erroSenha, setErroSenha] = useState("\n")
-  const [erroConfirmacaoSenha, setErroConfirmacaoSenha] = useState("\n")
+  const [nacionalidade, setNacionalidade] = useState("");
+  const [cnhCategoria, setCnhCategoria] = useState("");
+  const [cnhEmissao, setCnhEmissao] = useState("");
+  const [cnhValidade, setCnhValidade] = useState("");
+  const [rg, setRg] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [numeroRegistro, setNumeroRegistro] = useState("");
+  const [emailLogin, setEmailLogin] = useState("");
+  const [senhaLogin, setSenhaLogin] = useState("");
 
-  const [emailLogin, setEmailLogin] = useState("")
-  const [senhaLogin, setSenhaLogin] = useState("")
+  const [erroNome, setErroNome] = useState("");
+  const [erroTelefone, setErroTelefone] = useState("");
+  const [erroEmail, setErroEmail] = useState("");
+  const [erroSenha, setErroSenha] = useState("");
+  const [erroConfirmacaoSenha, setErroConfirmacaoSenha] = useState("");
 
-  const [erroEmailLogin, setErroEmailLogin] = useState("\n")
-  const [erroSenhaLogin, setErroSenhaLogin] = useState("\n")
+  const [erroNacionalidade, setErroNacionalidade] = useState("");
+  const [erroCnhCategoria, setErroCnhCategoria] = useState("");
+  const [erroCnhEmissao, setErroCnhEmissao] = useState("");
+  const [erroCnhValidade, setErroCnhValidade] = useState("");
+  const [erroRg, setErroRg] = useState("");
+  const [erroCpf, setErroCpf] = useState("");
 
+  const [erroEmailLogin, setErroEmailLogin] = useState("");
+  const [erroSenhaLogin, setErroSenhaLogin] = useState("");
+
+  function CategoriaCnh(texto) {
+    
+    if (texto.length <= 2) {
+      setCnhCategoria(texto);
+    }
+  }
+  
   function continuarCadastro() {
-    let informacoesValidas = true
-
-    if (!nome) {
-      setErroNome("Campo obrigatório!")
-      informacoesValidas = false
-    } else {
-      setErroNome("\n")
-    }
-
-    if (!telefone) {
-      setErroTelefone("Campo obrigatório!")
-      informacoesValidas = false
-    } else {
-      setErroTelefone("\n")
-    }
-
-    if (!email) {
-      setErroEmail("Campo obrigatório!")
-      informacoesValidas = false
-    } else if (!email.includes("@")) {
-      setErroEmail("Email inválido!")
-      informacoesValidas = false
-    } else {
-      setErroEmail("\n")
-    }
-
-    if (!senha) {
-      setErroSenha("Campo obrigatório!")
-      informacoesValidas = false
-    } else {
-      setErroSenha("\n")
-    }
-    
-    if (!confirmacaoSenha) {
-      setErroConfirmacaoSenha("Campo obrigatório!")
-      informacoesValidas = false
-    } else if (senha != confirmacaoSenha) {
-      setErroConfirmacaoSenha("Confirmação de senha não confere!")
-      informacoesValidas = false
-    } else {
-      setErroConfirmacaoSenha("\n")
-    }
-
-    
-    if (informacoesValidas) {
+      let informacoesValidas = true;
+  
+      if (nome.trim() === "") {
+          setErroNome("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroNome("");
+      }
+  
+      if (telefone.trim() === "") {
+          setErroTelefone("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroTelefone("");
+      }
+  
+      if (email.trim() === "") {
+          setErroEmail("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          if (email.includes("@")) {
+              setErroEmail("");
+          } else {
+              setErroEmail("Email inválido!");
+              informacoesValidas = false;
+          }
+      }
+  
+      if (senha.trim() === "") {
+          setErroSenha("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroSenha("");
+      }
+  
+      if (confirmacaoSenha.trim() === "") {
+          setErroConfirmacaoSenha("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          if (senha !== confirmacaoSenha) {
+              setErroConfirmacaoSenha("Confirmação de senha não confere!");
+              informacoesValidas = false;
+          } else {
+              setErroConfirmacaoSenha("");
+          }
+      }
+  
+      if (nacionalidade.trim() === "") {
+          setErroNacionalidade("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroNacionalidade("");
+      }
+  
+      if (cnhCategoria.trim() === "") {
+          setErroCnhCategoria("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroCnhCategoria("");
+      }
+  
+      if (cnhEmissao.trim() === "") {
+          setErroCnhEmissao("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroCnhEmissao("");
+      }
+  
+      if (cnhValidade.trim() === "") {
+          setErroCnhValidade("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroCnhValidade("");
+      }
+  
+      if (rg.trim() === "") {
+          setErroRg("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroRg("");
+      }
+  
+      if (cpf.trim() === "") {
+          setErroCpf("Campo obrigatório!");
+          informacoesValidas = false;
+      } else {
+          setErroCpf("");
+      }
+      if (!informacoesValidas) {
+          return;
+      }
+  
       setExibirCadastro(false);
-      navigation.navigate('CadastrarVeiculo');
-    }
+      navigation.navigate("CadastrarVeiculo");
+  }
+  
+
+function login() {
+  let informacoesValidas = true;
+
+  if (emailLogin === "" || emailLogin === " ") {
+      setErroEmailLogin("Campo obrigatório!");
+      informacoesValidas = false;
+  } else {
+      if (emailLogin.includes("@")) {
+          setErroEmailLogin("");
+      } else {
+          setErroEmailLogin("Email inválido!");
+          informacoesValidas = false;
+      }
   }
 
-  function login() {
-    let informacoesValidas = true
-
-    if (!emailLogin) {
-      setErroEmailLogin("Campo obrigatório!")
-      informacoesValidas = false
-    } else if (!emailLogin.includes("@")) {
-      setErroEmailLogin("Email inválido!")
-      informacoesValidas = false
-    } else {
-      setErroEmailLogin("\n")
-    }
-
-    if (!senhaLogin) {
-      setErroSenhaLogin("Campo obrigatório!")
-      informacoesValidas = false
-    } else {
-      setErroSenhaLogin("\n")
-    }
-
-    
-    if (informacoesValidas) {
-      navigation.navigate('MenuMotorista')
-    }
+  if (senhaLogin === "" || senhaLogin === " ") {
+      setErroSenhaLogin("Campo obrigatório!");
+      informacoesValidas = false;
+  } else {
+      setErroSenhaLogin("");
   }
+
+  if (informacoesValidas === true) {
+      navigation.navigate("MenuMotorista");
+  }
+}
+
+function NumeroRegistro(texto) {
+  let formatacao = texto; 
+  if (texto.length > 11) {
+    formatacao = texto.substring(0, 11); 
+  }
+  setNumeroRegistro(formatacao); 
+}
+
+function CategoriaCnh(texto) {
+  let categoriaFormatada = texto;
+  if (texto.length > 2) {
+    categoriaFormatada = texto.substring(0, 2);
+  }
+
+  setCnhCategoria(categoriaFormatada);
+}
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {exibirCadastro ? (
-        // Tela de Cadastro
         <>
-          <Text>Área de cadastro de motorista</Text>
+          <Text style={styles.titulo}>Cadastro de Motorista</Text>
 
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Nome" style={styles.input} onChangeText={setNome} />
-            <Text style={styles.erro}>{erroNome}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Telefone" style={styles.input} onChangeText={setTelefone} />
-            <Text style={styles.erro}>{erroTelefone}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} />
-            <Text style={styles.erro}>{erroEmail}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenha} />
-            <Text style={styles.erro}>{erroSenha}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Confirmar Senha" secureTextEntry style={styles.input} onChangeText={setConfirmacaoSenha} />
-            <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
-          </View>
+          <TextInput 
+          placeholder="Nome"
+           style={styles.input} 
+           onChangeText={setNome} 
+           />
+          <Text style={styles.erro}>{erroNome}</Text>
 
-          <Button title="Proximos passos" onPress={continuarCadastro} />
-          
-          <TouchableOpacity onPress={() => {
-            setErroNome("\n")
-            setErroTelefone("\n")
-            setErroEmail("\n")
-            setErroSenha("\n")
-            setErroConfirmacaoSenha("\n")
-            setExibirCadastro(false)
-          }}>
+          <TextInput 
+          placeholder="Telefone"
+           keyboardType="phone-pad" 
+           style={styles.input} 
+           onChangeText={setTelefone} 
+           />
+          <Text style={styles.erro}>{erroTelefone}</Text>
+
+          <TextInput
+           placeholder="Email"
+            keyboardType="email-address"
+             style={styles.input} 
+             onChangeText={setEmail} 
+             />
+          <Text style={styles.erro}>{erroEmail}</Text>
+
+          <TextInput 
+          placeholder="Senha"
+           secureTextEntry style={styles.input} 
+           onChangeText={setSenha} 
+           />
+          <Text style={styles.erro}>{erroSenha}</Text>
+
+          <TextInput 
+          placeholder="Confirmar Senha"
+           secureTextEntry style={styles.input} 
+           onChangeText={setConfirmacaoSenha} 
+           />
+          <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
+
+          <TextInput
+           placeholder="Nacionalidade"
+           style={styles.input}
+           onChangeText={setNacionalidade} 
+           />
+          <Text style={styles.erro}>{erroNacionalidade}</Text>
+
+          <TextInput 
+            placeholder="Categoria CNH" 
+            style={styles.input} 
+            onChangeText={CategoriaCnh} 
+          />
+          <Text style={styles.erro}>{erroCnhCategoria}</Text>
+
+
+          <TextInput 
+          placeholder="Data de Emissão CNH"
+           keyboardType="numeric"
+          style={styles.input} onChangeText={setCnhEmissao} 
+          />
+          <Text style={styles.erro}>{erroCnhEmissao}</Text>
+
+          <TextInput 
+          placeholder="Data de Validade CNH"
+           keyboardType="numeric" style={styles.input}
+            onChangeText={setCnhValidade} 
+            />
+          <Text style={styles.erro}>{erroCnhValidade}</Text>
+
+          <TextInput 
+          placeholder="RG" 
+          keyboardType="numeric"
+           style={styles.input}
+            onChangeText={setRg} />
+          <Text style={styles.erro}>{erroRg}</Text>
+
+          <TextInput 
+          placeholder="CPF"
+           keyboardType="numeric" 
+           style={styles.input} onChangeText={setCpf} />
+          <Text style={styles.erro}>{erroCpf}</Text>
+
+          <Button title="Próximos passos" onPress={continuarCadastro} />
+
+          <TouchableOpacity onPress={() => setExibirCadastro(false)}>
             <Text style={styles.link}>Voltar para login</Text>
           </TouchableOpacity>
         </>
       ) : (
-        // Tela de Login
         <>
-          <Text>Entrar na sua conta</Text>
-          
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmailLogin} />
-            <Text style={styles.erro}>{erroEmailLogin}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
-            <Text style={styles.erro}>{erroSenhaLogin}</Text>
-          </View>
+          <Text style={styles.titulo}>Entrar na sua conta</Text>
 
-          <Button title="Entrar" onPress={login}/>
+          <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} onChangeText={setEmailLogin} />
+          <Text style={styles.erro}>{erroEmailLogin}</Text>
+
+          <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
+          <Text style={styles.erro}>{erroSenhaLogin}</Text>
+
+          <TextInput 
+            placeholder="Número de Registro" 
+            keyboardType="numeric" 
+            style={styles.input}
+            onChangeText={NumeroRegistro}
+            value={numeroRegistro} 
+          />
+
+          <Button title="Entrar" onPress={login} />
 
           <TouchableOpacity>
             <Text style={styles.link}>Esqueci minha senha</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-            setErroEmailLogin("\n")
-            setErroSenhaLogin("\n")
-            setExibirCadastro(true)
-          }}>
+
+          <TouchableOpacity onPress={() => setExibirCadastro(true)}>
             <Text style={styles.link}>Não possui uma conta?</Text>
           </TouchableOpacity>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  inputContainer: {
-    width: '75%'
-  },
-  input: {
-    width: '100%',
-    padding: 10,
-    marginVertical: 5,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    placeholderTextColor: '#555'
-  },
-  link: {
-    color: 'blue',
-    marginTop: 10,
-  },
-  erro: {
-    color: 'red',
-    marginTop: -5,
-    marginBottom: 10,
-    fontSize: '75%'
-  },
+  container: { flexGrow: 1, alignItems: "center", padding: 20 },
+  titulo: { fontSize: 20, fontWeight: "bold", marginBottom: 15 },
+  input: { width: "80%", padding: 10, borderWidth: 1, marginVertical: 5, borderRadius: 5 },
+  link: { color: "blue", marginTop: 10 },
+  erro: { color: "red", fontSize: 12, marginBottom: 10 },
 });
