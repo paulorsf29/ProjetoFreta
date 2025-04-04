@@ -1,203 +1,137 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 
-export default function CadastroCliente({navigation}) {
+export default function CadastroCliente({ navigation }) {
   const [exibirCadastro, setExibirCadastro] = useState(false);
-
-  const [nome, setNome] = useState("")
-  const [telefone, setTelefone] = useState("")
-  const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
-  const [confirmacaoSenha, setConfirmacaoSenha] = useState("")
-
-  const [erroNome, setErroNome] = useState("\n")
-  const [erroTelefone, setErroTelefone] = useState("\n")
-  const [erroEmail, setErroEmail] = useState("\n")
-  const [erroSenha, setErroSenha] = useState("\n")
-  const [erroConfirmacaoSenha, setErroConfirmacaoSenha] = useState("\n")
-
-  const [emailLogin, setEmailLogin] = useState("")
-  const [senhaLogin, setSenhaLogin] = useState("")
-
-  const [erroEmailLogin, setErroEmailLogin] = useState("\n")
-  const [erroSenhaLogin, setErroSenhaLogin] = useState("\n")
-
-  function continuarCadastro() {
-    let informacoesValidas = true
-
-    if (!nome) {
-      setErroNome("Campo obrigatório!")
-      informacoesValidas = false
-    } else {
-      setErroNome("\n")
-    }
-
-    if (!telefone) {
-      setErroTelefone("Campo obrigatório!")
-      informacoesValidas = false
-    } else {
-      setErroTelefone("\n")
-    }
-
-    if (!email) {
-      setErroEmail("Campo obrigatório!")
-      informacoesValidas = false
-    } else if (!email.includes("@")) {
-      setErroEmail("Email inválido!")
-      informacoesValidas = false
-    } else {
-      setErroEmail("\n")
-    }
-
-    if (!senha) {
-      setErroSenha("Campo obrigatório!")
-      informacoesValidas = false
-    } else {
-      setErroSenha("\n")
-    }
-    
-    if (!confirmacaoSenha) {
-      setErroConfirmacaoSenha("Campo obrigatório!")
-      informacoesValidas = false
-    } else if (senha != confirmacaoSenha) {
-      setErroConfirmacaoSenha("Confirmação de senha não confere!")
-      informacoesValidas = false
-    } else {
-      setErroConfirmacaoSenha("\n")
-    }
-
-    
-    if (informacoesValidas) {
-      setExibirCadastro(false);
-      navigation.navigate('DadosEmpresariais');
-    }
-  }
+  const [emailLogin, setEmailLogin] = useState("");
+  const [senhaLogin, setSenhaLogin] = useState("");
+  const [erroEmailLogin, setErroEmailLogin] = useState("\n");
+  const [erroSenhaLogin, setErroSenhaLogin] = useState("\n");
 
   function login() {
-    let informacoesValidas = true
+    let informacoesValidas = true;
 
     if (!emailLogin) {
-      setErroEmailLogin("Campo obrigatório!")
-      informacoesValidas = false
+      setErroEmailLogin("Campo obrigatório!");
+      informacoesValidas = false;
     } else if (!emailLogin.includes("@")) {
-      setErroEmailLogin("Email inválido!")
-      informacoesValidas = false
+      setErroEmailLogin("Email inválido!");
+      informacoesValidas = false;
     } else {
-      setErroEmailLogin("\n")
+      setErroEmailLogin("\n");
     }
 
     if (!senhaLogin) {
-      setErroSenhaLogin("Campo obrigatório!")
-      informacoesValidas = false
+      setErroSenhaLogin("Campo obrigatório!");
+      informacoesValidas = false;
     } else {
-      setErroSenhaLogin("\n")
+      setErroSenhaLogin("\n");
     }
 
-    
     if (informacoesValidas) {
-      navigation.navigate('MenuCliente');
+      navigation.navigate("MenuCliente");
     }
   }
 
   return (
-    <View style={styles.container}>
-      {exibirCadastro ? (
-        <>
-          <Text>Área de cadastro de motorista</Text>
+    <ImageBackground source={require("../assets/Login_cliente.png")} style={styles.backgroundImage}>
+      <View style={styles.overlay}>
+        {!exibirCadastro ? (
+          <>
+            <Text style={styles.title}>Entrar em minha conta</Text>
 
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Nome" style={styles.input} onChangeText={setNome} />
-            <Text style={styles.erro}>{erroNome}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Telefone" style={styles.input} onChangeText={setTelefone} />
-            <Text style={styles.erro}>{erroTelefone}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} />
-            <Text style={styles.erro}>{erroEmail}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenha} />
-            <Text style={styles.erro}>{erroSenha}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Confirmar Senha" secureTextEntry style={styles.input} onChangeText={setConfirmacaoSenha} />
-            <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
-          </View>
+            <View style={styles.inputContainer}>
+              <TextInput placeholder="EMAIL / CPF / CNPJ" style={styles.input} onChangeText={setEmailLogin} />
+              <Text style={styles.erro}>{erroEmailLogin}</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
+              <Text style={styles.erro}>{erroSenhaLogin}</Text>
+            </View>
 
-          <Button title="Proximos passos" onPress={continuarCadastro} />
+            <TouchableOpacity style={styles.button} onPress={login}>
+              <Text style={styles.buttonText}>Entrar</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => {
-            setErroNome("\n")
-            setErroTelefone("\n")
-            setErroEmail("\n")
-            setErroSenha("\n")
-            setErroConfirmacaoSenha("\n")
-            setExibirCadastro(false)
-          }}>
-            <Text style={styles.link}>Voltar para login</Text>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <>
-          <Text>Entrar na sua conta</Text>
-
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmailLogin} />
-            <Text style={styles.erro}>{erroEmailLogin}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
-            <Text style={styles.erro}>{erroSenhaLogin}</Text>
-          </View>
-
-          <Button title="Entrar" onPress={login}/>
-
-          <TouchableOpacity>
-            <Text style={styles.link}>Esqueci minha senha</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-            setErroEmailLogin("\n")
-            setErroSenhaLogin("\n")
-            setExibirCadastro(true)
-          }}>
-            <Text style={styles.link}>Não possui uma conta?</Text>
-          </TouchableOpacity>
-        </>
-      )}
-    </View>
+            <TouchableOpacity>
+              <Text style={styles.link}>Esqueci minha senha</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setExibirCadastro(true)}>
+              <Text style={styles.link}>Não tenho conta</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <Text style={styles.title}>Área de cadastro</Text>
+        )}
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    resizeMode: "cover",
+    justifyContent: "center",
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "#fff6e3",
+    alignItems: "center",
+    justifyContent: "center",
+    height: '65%',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingTop: '5%',
+    paddingBottom: '5%',
+    borderTopRightRadius: 50,
+  },
+  title: {
+    fontSize: 35,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: 'center'
   },
   inputContainer: {
-    width: '75%'
+    width: "75%",
   },
   input: {
-    width: '100%',
+    backgroundColor: '#fff',
+    width: "100%",
     padding: 10,
     marginVertical: 5,
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    placeholderTextColor: '#555'
+    borderColor: "#000",
+    borderRadius: 10,
+    placeholderTextColor: "#555",
+  },
+  button: {
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    width: '70%',
+    height: 45,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'Arial',
   },
   link: {
-    color: 'blue',
+    color: "blue",
     marginTop: 10,
   },
   erro: {
-    color: 'red',
+    color: "red",
     marginTop: -5,
     marginBottom: 10,
-    fontSize: '75%'
+    fontSize: 12,
   },
 });

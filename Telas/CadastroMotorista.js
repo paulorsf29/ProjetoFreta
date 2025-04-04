@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
-import {Text, TextInput} from 'react-native'
-import {TouchableOpacity} from 'react-native'; 
-import {Button} from 'react-native'; 
+import { StyleSheet, ScrollView, Text, TextInput, TouchableOpacity, Button } from 'react-native';
 
 export default function CadastroMotorista({ navigation }) {
-
   const [exibirCadastro, setExibirCadastro] = useState(false);
 
   const [nome, setNome] = useState("");
@@ -19,442 +15,121 @@ export default function CadastroMotorista({ navigation }) {
   const [cnhValidade, setCnhValidade] = useState("");
   const [rg, setRg] = useState("");
   const [cpf, setCpf] = useState("");
-  const [registro, setregistro] = useState("");
+  const [registro, setRegistro] = useState("");
   const [emailLogin, setEmailLogin] = useState("");
   const [senhaLogin, setSenhaLogin] = useState("");
 
-  const [erroNome, setErroNome] = useState("\n");
-  const [erroTelefone, setErroTelefone] = useState("\n");
-  const [erroEmail, setErroEmail] = useState("\n");
-  const [erroSenha, setErroSenha] = useState("\n");
-  const [erroConfirmacaoSenha, setErroConfirmacaoSenha] = useState("\n");
+  const [erros, setErros] = useState({});
 
-  const [erroNacionalidade, setErroNacionalidade] = useState("\n");
-  const [erroCnhCategoria, setErroCnhCategoria] = useState("\n");
-  const [erroCnhEmissao, setErroCnhEmissao] = useState("\n");
-  const [erroCnhValidade, setErroCnhValidade] = useState("\n");
-  const [erroRg, setErroRg] = useState("\n");
-  const [erroCpf, setErroCpf] = useState("\n");
-
-  const [erroEmailLogin, setErroEmailLogin] = useState("");
-  const [erroSenhaLogin, setErroSenhaLogin] = useState("");
-
-  function CategoriaCnh(texto) {
-    let novaCat = "";
-    let i = 0;
-  
-    while (i < texto.length) {
-      novaCat += texto[i];
-      i++;
+  function validarCampo(valor, campo, condicaoExtra = () => true) {
+    if (!valor.trim()) {
+      return `${campo} é obrigatório!`;
     }
-  
-    if (novaCat.length <= 2) {
-      setCnhCategoria(novaCat);
+    if (!condicaoExtra(valor)) {
+      return `${campo} inválido!`;
     }
+    return "";
   }
-  
+
   function continuarCadastro() {
-    let informacaoVerdade = true;
-  
-    if (nome.length === 0) {
-      setErroNome("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      let nomeSemEspaco = "";
-      for (let i = 0; i < nome.length; i++) {
-        if (nome[i] !== " ") {
-          nomeSemEspaco += nome[i];
-        }
-      }
-      if (nomeSemEspaco.length === 0) {
-        setErroNome("Campo obrigatório!");
-        informacaoVerdade = false;
-      } else {
-        setErroNome("");
-      }
+    const novosErros = {
+      nome: validarCampo(nome, "Nome"),
+      telefone: validarCampo(telefone, "Telefone"),
+      email: validarCampo(email, "Email", (v) => v.includes("@")),
+      senha: validarCampo(senha, "Senha"),
+      confirmacaoSenha:
+        senha === confirmacaoSenha ? "" : "Confirmação de senha não confere!",
+      nacionalidade: validarCampo(nacionalidade, "Nacionalidade"),
+      cnhCategoria: validarCampo(cnhCategoria, "Categoria CNH"),
+      cnhValidade: validarCampo(cnhValidade, "Data de Validade CNH"),
+      rg: validarCampo(rg, "RG"),
+      cpf: validarCampo(cpf, "CPF")
+    };
+
+    setErros(novosErros);
+
+    const possuiErro = Object.values(novosErros).some((erro) => erro);
+    if (!possuiErro) {
+      setExibirCadastro(false);
+      navigation.navigate("CadastrarVeiculo");
     }
-  
-    if (telefone.length === 0) {
-      setErroTelefone("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      let telefoneSemEspaco = "";
-      for (let i = 0; i < telefone.length; i++) {
-        if (telefone[i] !== " ") {
-          telefoneSemEspaco += telefone[i];
-        }
-      }
-      if (telefoneSemEspaco.length === 0) {
-        setErroTelefone("Campo obrigatório!");
-        informacaoVerdade = false;
-      } else {
-        setErroTelefone("");
-      }
-    }
-  
-    if (email.length === 0) {
-      setErroEmail("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      let temArroba = false;
-      for (let i = 0; i < email.length; i++) {
-        if (email[i] === "@") {
-          temArroba = true;
-        }
-      }
-      if (!temArroba) {
-        setErroEmail("Email inválido!");
-        informacaoVerdade = false;
-      } else {
-        setErroEmail("");
-      }
-    }
-  
-    if (senha.length === 0) {
-      setErroSenha("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      setErroSenha("");
-    }
-  
-    if (confirmacaoSenha.length === 0) {
-      setErroConfirmacaoSenha("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      let senhaDiferente = false;
-      if (senha.length !== confirmacaoSenha.length) {
-        senhaDiferente = true;
-      } else {
-        for (let i = 0; i < senha.length; i++) {
-          if (senha[i] !== confirmacaoSenha[i]) {
-            senhaDiferente = true;
-            break;
-          }
-        }
-      }
-      if (senhaDiferente) {
-        setErroConfirmacaoSenha("Confirmação de senha não confere!");
-        informacaoVerdade = false;
-      } else {
-        setErroConfirmacaoSenha("");
-      }
-    }
-  
-    if (nacionalidade.length === 0) {
-      setErroNacionalidade("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      setErroNacionalidade("");
-    }
-  
-    if (cnhCategoria.length === 0) {
-      setErroCnhCategoria("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      setErroCnhCategoria("");
-    }
-  
-    if (cnhEmissao.length === 0) {
-      setErroCnhEmissao("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      setErroCnhEmissao("");
-    }
-  
-    if (cnhValidade.length === 0) {
-      setErroCnhValidade("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      setErroCnhValidade("");
-    }
-  
-    if (rg.length === 0) {
-      setErroRg("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      setErroRg("");
-    }
-  
-    if (cpf.length === 0) {
-      setErroCpf("Campo obrigatório!");
-      informacaoVerdade = false;
-    } else {
-      setErroCpf("");
-    }
-  
-    if (informacaoVerdade === false) {
-      return;
-    }
-  
-    setExibirCadastro(false);
-    navigation.navigate("CadastrarVeiculo");
   }
 
-function login() {
-  let informacaoVerdade = true;
+  function login() {
+    const errosLogin = {
+      emailLogin: validarCampo(emailLogin, "Email", (v) => v.includes("@")),
+      senhaLogin: validarCampo(senhaLogin, "Senha")
+    };
 
-  if (emailLogin === "" || emailLogin === " ") {
-      setErroEmailLogin("Campo obrigatório!");
-      informacaoVerdade = false;
-  } else {
-      if (emailLogin.includes("@")) {
-          setErroEmailLogin("");
-      } else {
-          setErroEmailLogin("Email inválido!");
-          informacaoVerdade = false;
-      }
-  }
+    setErros(errosLogin);
 
-  if (senhaLogin === "" || senhaLogin === " ") {
-      setErroSenhaLogin("Campo obrigatório!");
-      informacaoVerdade = false;
-  } else {
-      setErroSenhaLogin("");
-  }
-
-  if (informacaoVerdade === true) {
+    const possuiErro = Object.values(errosLogin).some((erro) => erro);
+    if (!possuiErro) {
       navigation.navigate("MenuMotorista");
-  }
-}
-
-function NumeroRegistro(texto) {
-  let formatacao = texto;
-  if (texto.length > 11) {
-    formatacao = texto.substring(0, 11);
-  }
-  setregistro(formatacao); 
-}
-
-function CategoriaCnh(texto) {
-  let fcategoria = "";
-  let contador = 0;
-
-  while (contador < texto.length) {
-    if (contador < 2) {
-      fcategoria += texto[contador];
-    }
-    contador++;
-  }
-  if (texto.length > 2) {
-    let novaCat = "";
-    for (let i = 0; i < 2; i++) {
-      novaCat += fcategoria[i];
-    }
-    fcategoria = novaCat;
-  }
-  setCnhCategoria(fcategoria);
-}
-
-
-function formatarTelefone(texto) {
-
-  let ncell = "";
-  for (let i = 0; i < texto.length; i++) {
-    if (texto[i] === "0" || texto[i] === "1" || texto[i] === "2" || texto[i] === "3" || texto[i] === "4" || texto[i] === "5" || texto[i] === "6" || texto[i] === "7" || texto[i] === "8" || texto[i] === "9") {
-      ncell += texto[i];
     }
   }
 
-  let nLimitados = "";
-  let contador = 0;
-  while (contador < ncell.length && contador < 11) {
-    nLimitados += ncell[contador];
-    contador++;
+  function formatarNumero(texto, limite) {
+    return texto.replace(/\D/g, '').slice(0, limite);
   }
 
-  let telefoneFormatado = "";
-  let tesao = 0;
-  
-  if (nLimitados.length > 0) {
-    telefoneFormatado += "(";
+  function formatarTelefone(texto) {
+    const numeros = formatarNumero(texto, 11);
+    const telefoneFormatado = numeros.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    setTelefone(telefoneFormatado);
   }
 
-  while (tesao < nLimitados.length) {
-    if (tesao === 2) {
-      telefoneFormatado += ") ";
-    }
-    if (tesao === 6 && nLimitados.length >= 7) {
-      telefoneFormatado += "-";
-    }
-    telefoneFormatado += nLimitados[tesao];
-    tesao++;
+  function formatarCpf(texto) {
+    const numeros = formatarNumero(texto, 11);
+    const cpfFormatado = numeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    setCpf(cpfFormatado);
   }
 
-  setTelefone(telefoneFormatado);
-}
-
-
-function formatarCpf(texto) {
-  let NumerosCPf = "";
-
-  for (let i = 0; i < texto.length; i++) {
-    let elemento = texto[i];
-    if (
-      elemento === "0" || elemento === "1" ||elemento === "2" ||elemento === "3" ||elemento === "4" ||elemento === "5" ||elemento === "6" ||elemento === "7" ||elemento === "8" ||elemento === "9") {
-      NumerosCPf += elemento;
-    }
+  function formatarRegistro(texto) {
+    setRegistro(formatarNumero(texto, 11));
   }
 
-  let cpfLimitado = "";
-  let contador = 0;
-  while (contador < NumerosCPf.length && contador < 11) {
-    cpfLimitado += NumerosCPf[contador];
-    contador++;
+  function limitarCategoria(texto) {
+    setCnhCategoria(texto.slice(0, 2));
   }
-
-  let cpfFormatado = "";
-  let tesao = 0;
-  while (tesao < cpfLimitado.length) {
-    if (tesao === 3) {
-      cpfFormatado += ".";
-    }
-    if (tesao === 6) {
-      cpfFormatado += ".";
-    }
-    if (tesao === 9) {
-      cpfFormatado += "-";
-    }
-    cpfFormatado += cpfLimitado[tesao];
-    tesao++;
-  }
-
-  setCpf(cpfFormatado);
-}
-
 
   return (
-    <ScrollView style={{flex: 1}} contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {exibirCadastro ? (
         <>
           <Text style={styles.titulo}>Cadastro de Motorista</Text>
 
-          <TextInput
-           placeholder="Nome"
-           style={styles.input}
-           onChangeText={setNome}
-           value={nome}/>
-          <TextInput
-           placeholder="Nome"
-           style={styles.input}
-           onChangeText={setNome}
-           value={nome}/>
-          <Text style={styles.erro}>{erroNome}</Text>
+          <TextInput placeholder="Nome" style={styles.input} onChangeText={setNome} value={nome} />
+          <Text style={styles.erro}>{erros.nome}</Text>
 
-          <TextInput
-            placeholder="Telefone"
-            keyboardType="phone-pad"
-            style={styles.input}
-            onChangeText={formatarTelefone}
-            value={telefone}/>
+          <TextInput placeholder="Telefone" keyboardType="phone-pad" style={styles.input} onChangeText={formatarTelefone} value={telefone} />
+          <Text style={styles.erro}>{erros.telefone}</Text>
 
-          <TextInput
-           placeholder="Email"
-           keyboardType="email-address"
-           style={styles.input}
-           onChangeText={setEmail}
-           value={email}/>
-           keyboardType="email-address"
-           style={styles.input}
-           onChangeText={setEmail}
-           value={email}/>
-          <Text style={styles.erro}>{erroEmail}</Text>
+          <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} onChangeText={setEmail} value={email} />
+          <Text style={styles.erro}>{erros.email}</Text>
 
-          <TextInput
-           placeholder="Senha" 
-           secureTextEntry
-           style={styles.input}
-           onChangeText={setSenha}
-           value={senha}/>
-          <TextInput
-           placeholder="Senha" 
-           secureTextEntry
-           style={styles.input}
-           onChangeText={setSenha}
-           value={senha}/>
-          <Text style={styles.erro}>{erroSenha}</Text>
+          <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenha} value={senha} />
+          <Text style={styles.erro}>{erros.senha}</Text>
 
-          <TextInput
-           placeholder="Confirmar Senha"
-           secureTextEntry
-           style={styles.input}
-           onChangeText={setConfirmacaoSenha}
-           value={confirmacaoSenha}/>
-          <TextInput
-           placeholder="Confirmar Senha"
-           secureTextEntry
-           style={styles.input}
-           onChangeText={setConfirmacaoSenha}
-           value={confirmacaoSenha}/>
-          <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
+          <TextInput placeholder="Confirmar Senha" secureTextEntry style={styles.input} onChangeText={setConfirmacaoSenha} value={confirmacaoSenha} />
+          <Text style={styles.erro}>{erros.confirmacaoSenha}</Text>
 
-          <TextInput
-           placeholder="Nacionalidade"
-           style={styles.input}
-           onChangeText={setNacionalidade}
-           value={nacionalidade}/>
-           onChangeText={setNacionalidade}
-           value={nacionalidade}/>
-          <Text style={styles.erro}>{erroNacionalidade}</Text>
+          <TextInput placeholder="Nacionalidade" style={styles.input} onChangeText={setNacionalidade} value={nacionalidade} />
+          <Text style={styles.erro}>{erros.nacionalidade}</Text>
 
-          <TextInput
-           placeholder="Categoria CNH"
-           style={styles.input}
-           onChangeText={CategoriaCnh}
-           value={cnhCategoria}/>
-          <TextInput
-           placeholder="Categoria CNH"
-           style={styles.input}
-           onChangeText={CategoriaCnh}
-           value={cnhCategoria}/>
-          <Text style={styles.erro}>{erroCnhCategoria}</Text>
+          <TextInput placeholder="Categoria CNH" style={styles.input} onChangeText={limitarCategoria} value={cnhCategoria} />
+          <Text style={styles.erro}>{erros.cnhCategoria}</Text>
 
+          <TextInput placeholder="Data de Validade CNH" keyboardType="numeric" style={styles.input} onChangeText={setCnhValidade} value={cnhValidade} />
+          <Text style={styles.erro}>{erros.cnhValidade}</Text>
 
-          <TextInput
-           placeholder="Data de Emissão CNH"
-          <TextInput
-           placeholder="Data de Emissão CNH"
-           keyboardType="numeric"
-           style={styles.input}
-           onChangeText={setCnhEmissao}
-           value={cnhEmissao}/>
-           style={styles.input}
-           onChangeText={setCnhEmissao}
-           value={cnhEmissao}/>
-          <Text style={styles.erro}>{erroCnhEmissao}</Text>
+          <TextInput placeholder="RG" keyboardType="numeric" style={styles.input} onChangeText={setRg} value={rg} />
+          <Text style={styles.erro}>{erros.rg}</Text>
 
-          <TextInput
-           placeholder="Data de Validade CNH"
-           keyboardType="numeric"
-           style={styles.input}
-           onChangeText={setCnhValidade}
-           value={cnhValidade}/>
-          <TextInput
-           placeholder="Data de Validade CNH"
-           keyboardType="numeric"
-           style={styles.input}
-           onChangeText={setCnhValidade}
-           value={cnhValidade}/>
-          <Text style={styles.erro}>{erroCnhValidade}</Text>
-
-          <TextInput
-            placeholder="RG"
-            keyboardType="numeric"
-            style={styles.input}
-            onChangeText={setRg}
-            value={rg}/>
-            <Text style={styles.erro}>{erroRg}</Text>
-
-          <TextInput
-            placeholder="CPF"
-            keyboardType="numeric"
-            style={styles.input}
-            onChangeText={formatarCpf}
-            value={cpf}/>
-            <Text style={styles.erro}>{erroCpf}</Text>
-
+          <TextInput placeholder="CPF" keyboardType="numeric" style={styles.input} onChangeText={formatarCpf} value={cpf} />
+          <Text style={styles.erro}>{erros.cpf}</Text>
 
           <Button title="Próximos passos" onPress={continuarCadastro} />
-
           <TouchableOpacity onPress={() => setExibirCadastro(false)}>
             <Text style={styles.link}>Voltar para login</Text>
           </TouchableOpacity>
@@ -462,51 +137,17 @@ function formatarCpf(texto) {
       ) : (
         <>
           <Text style={styles.titulo}>Entrar na sua conta</Text>
+          <Text style={styles.erro}>{erros.emailLogin}</Text>
 
-          <TextInput
-           placeholder="Email"
-           keyboardType="email-address"
-           style={styles.input}
-           onChangeText={setEmailLogin}
-           value={emailLogin}
-          />
-          <TextInput
-           placeholder="Email"
-           keyboardType="email-address"
-           style={styles.input}
-           onChangeText={setEmailLogin}
-           value={emailLogin}
-          />
-          <Text style={styles.erro}>{erroEmailLogin}</Text>
+          <TextInput placeholder="Número de registro" keyboardType="numeric" style={styles.input} onChangeText={formatarRegistro} value={registro} />
 
-          <TextInput
-           placeholder="Senha"
-           secureTextEntry
-           style={styles.input}
-           onChangeText={setSenhaLogin}
-           value={senhaLogin}
-          />
-          <TextInput
-           placeholder="Senha"
-           secureTextEntry
-           style={styles.input}
-           onChangeText={setSenhaLogin}
-           value={senhaLogin}
-          />
-          <Text style={styles.erro}>{erroSenhaLogin}</Text>
-
-          <TextInput
-            placeholder="Número de registro"
-            keyboardType="numeric"
-            style={styles.input}
-            onChangeText={NumeroRegistro}
-            value={registro}
-          />
+          <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} value={senhaLogin} />
+          <Text style={styles.erro}>{erros.senhaLogin}</Text>
 
           <Button title="Entrar" onPress={login} />
 
           <TouchableOpacity>
-            <Text style={styles.link}>Esqueçeu a senha?</Text>
+            <Text style={styles.link}>Esqueceu a senha?</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => setExibirCadastro(true)}>
@@ -519,7 +160,7 @@ function formatarCpf(texto) {
 }
 
 const styles = StyleSheet.create({
-  container: { height: 1, flexGrow: 1, alignItems: "center", padding: 20 },
+  container: { flexGrow: 1, alignItems: "center", padding: 20 },
   titulo: { fontSize: 20, fontWeight: "bold", marginBottom: 15 },
   input: { width: "80%", padding: 10, borderWidth: 1, marginVertical: 5, borderRadius: 5 },
   link: { color: "blue", marginTop: 10 },
