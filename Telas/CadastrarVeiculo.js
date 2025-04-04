@@ -70,23 +70,13 @@ export default function CadastrarVeiculo({ navigation }) {
   }
 
   function formatarAno(texto) {
+    let anoFormatado = texto.replace(/\D/g, ''); // Remove caracteres não numéricos
+    if (anoFormatado.length > 4) {
+      anoFormatado = anoFormatado.substring(0, 4); // Limita a 4 caracteres
+    }
 
-    let anoFormatado = '';
-    for (let i = 0; i < texto.length; i++) {
-      if (texto[i] >= '0' && texto[i] <= '9') {
-        anoFormatado += texto[i];
-      }
-    }
-    let anoFinal = '';
-    for (let j = 0; j < anoFormatado.length; j++) {
-      if (j < 4) {
-        anoFinal += anoFormatado[j];
-      }
-    }
-  
-    setAno(anoFinal);
+    setAno(anoFormatado);
   }
-  
 
   return (
     <View style={styles.container}>
@@ -116,14 +106,14 @@ export default function CadastrarVeiculo({ navigation }) {
       />
 
       <TextInput
-        placeholder="Cor do Veiculo"
+        placeholder="Cor do Carro"
         style={styles.input}
         onChangeText={setCor}
         value={cor}
       />
 
       <TextInput
-        placeholder="Ano do Veiculo"
+        placeholder="Ano do Veículo"
         style={styles.input}
         onChangeText={formatarAno}
         value={ano}
@@ -156,7 +146,7 @@ export default function CadastrarVeiculo({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
