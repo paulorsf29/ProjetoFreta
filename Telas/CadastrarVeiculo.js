@@ -70,9 +70,9 @@ export default function CadastrarVeiculo({ navigation }) {
   }
 
   function formatarAno(texto) {
-    let anoFormatado = texto.replace(/\D/g, ''); // Remove caracteres não numéricos
+    let anoFormatado = texto.replace(/\D/g, ''); 
     if (anoFormatado.length > 4) {
-      anoFormatado = anoFormatado.substring(0, 4); // Limita a 4 caracteres
+      anoFormatado = anoFormatado.substring(0, 4);
     }
 
     setAno(anoFormatado);
