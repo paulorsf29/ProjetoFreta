@@ -1,5 +1,7 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+/* * * * precisa importar o native-stack * * * */
+/* npm install @react-navigation/native-stack */
 import { NavigationContainer } from '@react-navigation/native';
 
 import TelaInicializacao from './Telas/TelaInicializacao'; // Importação da tela de inicialização
@@ -15,14 +17,14 @@ import AcompanharCarga from './Telas/AcompanharCarga';
 import DadosEmpresariais from './Telas/DadosEmpresariais';
 import QuemSomos from './Telas/QuemSomos';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="TelaInicializacao" // Define a tela de inicialização como a primeira tela
-        screenOptions={{ headerShown: false }} // Oculta os headers
+        initialRouteName="TelaInicializacao"
+        screenOptions={{ headerShown: true }}
       >
         <Stack.Screen name="TelaInicializacao" component={TelaInicializacao} />
         <Stack.Screen name="MenuPrincipal" component={MenuPrincipal} />
