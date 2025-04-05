@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
-import {Text, TextInput} from 'react-native'
-import {TouchableOpacity} from 'react-native'; 
+import { StyleSheet, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default function CadastroMotorista({ navigation }) {
 
@@ -197,123 +195,123 @@ export default function CadastroMotorista({ navigation }) {
     navigation.navigate("CadastrarVeiculo");
   }
 
-function login() {
-  let informacaoVerdade = true;
+  function login() {
+    let informacaoVerdade = true;
 
-  if (emailLogin === "" || emailLogin === " ") {
-      setErroEmailLogin("Campo obrigatório!");
-      informacaoVerdade = false;
-  } else {
-      if (emailLogin.includes("@")) {
-          setErroEmailLogin("");
-      } else {
-          setErroEmailLogin("Email inválido!");
-          informacaoVerdade = false;
-      }
-  }
-
-  if (senhaLogin === "" || senhaLogin === " ") {
-      setErroSenhaLogin("Campo obrigatório!");
-      informacaoVerdade = false;
-  } else {
-      setErroSenhaLogin("");
-  }
-
-  if (informacaoVerdade === true) {
-      navigation.navigate("MenuMotorista");
-  }
-}
-
-function NumeroRegistro(texto) {
-  let formatacao = texto;
-  if (texto.length > 11) {
-    formatacao = texto.substring(0, 11);
-  }
-  setregistro(formatacao); 
-}
-
-function formatarTelefone(texto) {
-  let numeros = "";
-  let i = 0;
-
-  while (i < texto.length) {
-    let caractere = texto[i];
-
-    if (caractere === "0" ||caractere === "1" || caractere === "2" || caractere === "3" || caractere === "4" || caractere === "5" || caractere === "6" ||caractere === "7" || caractere === "8" ||caractere === "9") {
-      numeros += caractere;
-    }
-    i++;
-  }
-
-  let nLimitados = "";
-  let j = 0;
-  while (j < numeros.length && j < 11) {
-    nLimitados += numeros[j];
-    j++;
-  }
-
-  let telefoneFormatado = "";
-  let k = 0;
-  while (k < nLimitados.length) {
-    if (k === 0) {
-      telefoneFormatado += "(";
-      telefoneFormatado += nLimitados[k];
-    } else if (k === 1) {
-      telefoneFormatado += nLimitados[k];
-      telefoneFormatado += ") ";
-    } else if (k === 6) {
-      telefoneFormatado += nLimitados[k];
-      telefoneFormatado += "-";
+    if (emailLogin === "" || emailLogin === " ") {
+        setErroEmailLogin("Campo obrigatório!");
+        informacaoVerdade = false;
     } else {
-      telefoneFormatado += nLimitados[k];
+        if (emailLogin.includes("@")) {
+            setErroEmailLogin("");
+        } else {
+            setErroEmailLogin("Email inválido!");
+            informacaoVerdade = false;
+        }
     }
 
-    k++;
-  }
-  setTelefone(telefoneFormatado);
-}
-
-
-function formatarCpf(texto) {
-  let NumerosCPf = "";
-
-  for (let i = 0; i < texto.length; i++) {
-    let elemento = texto[i];
-    if (
-      elemento === "0" || elemento === "1" ||elemento === "2" ||elemento === "3" ||elemento === "4" ||elemento === "5" ||elemento === "6" ||elemento === "7" ||elemento === "8" ||elemento === "9") {
-      NumerosCPf += elemento;
+    if (senhaLogin === "" || senhaLogin === " ") {
+        setErroSenhaLogin("Campo obrigatório!");
+        informacaoVerdade = false;
+    } else {
+        setErroSenhaLogin("");
     }
-  }
 
-  let cpfLimitado = "";
-  let contador = 0;
-  while (contador < NumerosCPf.length && contador < 11) {
-    cpfLimitado += NumerosCPf[contador];
-    contador++;
+    if (informacaoVerdade === true) {
+        navigation.navigate("MenuMotorista");
+    }
   }
 
-  let cpfFormatado = "";
-  let tesao = 0;
-  while (tesao < cpfLimitado.length) {
-    if (tesao === 3) {
-      cpfFormatado += ".";
+  function NumeroRegistro(texto) {
+    let formatacao = texto;
+    if (texto.length > 11) {
+      formatacao = texto.substring(0, 11);
     }
-    if (tesao === 6) {
-      cpfFormatado += ".";
-    }
-    if (tesao === 9) {
-      cpfFormatado += "-";
-    }
-    cpfFormatado += cpfLimitado[tesao];
-    tesao++;
+    setregistro(formatacao); 
   }
 
-  setCpf(cpfFormatado);
-}
+  function formatarTelefone(texto) {
+    let numeros = "";
+    let i = 0;
+
+    while (i < texto.length) {
+      let caractere = texto[i];
+
+      if (caractere === "0" ||caractere === "1" || caractere === "2" || caractere === "3" || caractere === "4" || caractere === "5" || caractere === "6" ||caractere === "7" || caractere === "8" ||caractere === "9") {
+        numeros += caractere;
+      }
+      i++;
+    }
+
+    let nLimitados = "";
+    let j = 0;
+    while (j < numeros.length && j < 11) {
+      nLimitados += numeros[j];
+      j++;
+    }
+
+    let telefoneFormatado = "";
+    let k = 0;
+    while (k < nLimitados.length) {
+      if (k === 0) {
+        telefoneFormatado += "(";
+        telefoneFormatado += nLimitados[k];
+      } else if (k === 1) {
+        telefoneFormatado += nLimitados[k];
+        telefoneFormatado += ") ";
+      } else if (k === 6) {
+        telefoneFormatado += nLimitados[k];
+        telefoneFormatado += "-";
+      } else {
+        telefoneFormatado += nLimitados[k];
+      }
+
+      k++;
+    }
+    setTelefone(telefoneFormatado);
+  }
+
+
+  function formatarCpf(texto) {
+    let NumerosCPf = "";
+
+    for (let i = 0; i < texto.length; i++) {
+      let elemento = texto[i];
+      if (
+        elemento === "0" || elemento === "1" ||elemento === "2" ||elemento === "3" ||elemento === "4" ||elemento === "5" ||elemento === "6" ||elemento === "7" ||elemento === "8" ||elemento === "9") {
+        NumerosCPf += elemento;
+      }
+    }
+
+    let cpfLimitado = "";
+    let contador = 0;
+    while (contador < NumerosCPf.length && contador < 11) {
+      cpfLimitado += NumerosCPf[contador];
+      contador++;
+    }
+
+    let cpfFormatado = "";
+    let tesao = 0;
+    while (tesao < cpfLimitado.length) {
+      if (tesao === 3) {
+        cpfFormatado += ".";
+      }
+      if (tesao === 6) {
+        cpfFormatado += ".";
+      }
+      if (tesao === 9) {
+        cpfFormatado += "-";
+      }
+      cpfFormatado += cpfLimitado[tesao];
+      tesao++;
+    }
+
+    setCpf(cpfFormatado);
+  }
 
 
   return (
-    <ScrollView style={{flex: 1}} contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {exibirCadastro ? (
         <>
           <Text style={styles.titulo}>Cadastro de Motorista</Text>
@@ -322,23 +320,25 @@ function formatarCpf(texto) {
            placeholder="Nome"
            style={styles.input}
            onChangeText={setNome}
-           value={nome}/>
+           value={nome}
+          />
           <Text style={styles.erro}>{erroNome}</Text>
 
           <TextInput
-            placeholder="Telefone"
-            keyboardType="phone-pad"
-            style={styles.input}
-            onChangeText={formatarTelefone}
-            value={telefone}/>
+           placeholder="Telefone"
+           keyboardType="phone-pad"
+           style={styles.input}
+           onChangeText={formatarTelefone}
+           value={telefone}
+          />
 
           <TextInput
            placeholder="Email"
            keyboardType="email-address"
            style={styles.input}
            onChangeText={setEmail}
-           value={email}/>
-
+           value={email}
+          />
           <Text style={styles.erro}>{erroEmail}</Text>
 
           <TextInput
@@ -346,7 +346,8 @@ function formatarCpf(texto) {
            secureTextEntry
            style={styles.input}
            onChangeText={setSenha}
-           value={senha}/>
+           value={senha}
+          />
           <Text style={styles.erro}>{erroSenha}</Text>
 
           <TextInput
@@ -354,31 +355,33 @@ function formatarCpf(texto) {
            secureTextEntry
            style={styles.input}
            onChangeText={setConfirmacaoSenha}
-           value={ConfirmaSenha}/>
+           value={ConfirmaSenha}
+          />
           <Text style={styles.erro}>{erroConfirmacaoSenha}</Text>
 
           <TextInput
-            placeholder="Nacionalidade"
-            style={styles.input}
-            onChangeText={setNacionalidade}
-            value={nacionalidade}/>
+           placeholder="Nacionalidade"
+           style={styles.input}
+           onChangeText={setNacionalidade}
+           value={nacionalidade}
+          />
           <Text style={styles.erro}>{erroNacionalidade}</Text>
-
 
           <TextInput
            placeholder="Categoria CNH"
            style={styles.input}
            onChangeText={CategoriaCnh}
-           value={cnhCategoria}/>
+           value={cnhCategoria}
+          />
           <Text style={styles.erro}>{erroCnhCategoria}</Text>
-          <TextInput
-            placeholder="Data de Emissão CNH"
-            keyboardType="numeric"
-            style={styles.input}
-           onChangeText={setCnhEmissao}
-           value={cnhEmissao}/>
-            <Text style={styles.erro}>{erroCnhEmissao}</Text>
 
+          <TextInput
+           placeholder="Data de Emissão CNH"
+           keyboardType="numeric"
+           style={styles.input}
+           onChangeText={setCnhEmissao}
+           value={cnhEmissao}
+          />
           <Text style={styles.erro}>{erroCnhEmissao}</Text>
 
           <TextInput
@@ -386,33 +389,35 @@ function formatarCpf(texto) {
            keyboardType="numeric"
            style={styles.input}
            onChangeText={setCnhValidade}
-           value={cnhValidade}/>
+           value={cnhValidade}
+          />
           <Text style={styles.erro}>{erroCnhValidade}</Text>
 
           <TextInput
-            placeholder="RG"
-            keyboardType="numeric"
-            style={styles.input}
-            onChangeText={setRg}
-            value={rg}/>
-            <Text style={styles.erro}>{erroRg}</Text>
+           placeholder="RG"
+           keyboardType="numeric"
+           style={styles.input}
+           onChangeText={setRg}
+           value={rg}
+          />
+          <Text style={styles.erro}>{erroRg}</Text>
 
           <TextInput
-            placeholder="CPF"
-            keyboardType="numeric"
-            style={styles.input}
-            onChangeText={formatarCpf}
-            value={cpf}/>
-            <Text style={styles.erro}>{erroCpf}</Text>
+           placeholder="CPF"
+           keyboardType="numeric"
+           style={styles.input}
+           onChangeText={formatarCpf}
+           value={cpf}
+          />
+          <Text style={styles.erro}>{erroCpf}</Text>
 
-
-            <TouchableOpacity style={styles.botao} onPress={continuarCadastro} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.botao} onPress={continuarCadastro} activeOpacity={0.7}>
             <Text style={styles.botaoTexto}>Próximos passos</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
 
-            <TouchableOpacity style={styles.linkButton} onPress={() => setExibirCadastro(false)}>
-             <Text style={styles.link}>Voltar para login</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={styles.linkButton} onPress={() => setExibirCadastro(false)}>
+           <Text style={styles.link}>Voltar para login</Text>
+          </TouchableOpacity>
         </>
       ) : (
         <>
@@ -444,17 +449,17 @@ function formatarCpf(texto) {
             value={registro}
           />
 
-        <TouchableOpacity style={styles.botao} onPress={login} activeOpacity={0.7}>
-          <Text style={styles.botaoTexto}>Entrar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.botao} onPress={login} activeOpacity={0.7}>
+            <Text style={styles.botaoTexto}>Entrar</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Text style={styles.link}>Esqueçeu a senha?</Text>
-        </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.link}>Esqueçeu a senha?</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => setExibirCadastro(true)}>
-          <Text style={styles.link}>Não possui uma conta?</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => setExibirCadastro(true)}>
+            <Text style={styles.link}>Não possui uma conta?</Text>
+          </TouchableOpacity>
         </>
       )}
     </ScrollView>
@@ -462,19 +467,34 @@ function formatarCpf(texto) {
 }
 
 const styles = StyleSheet.create({
-  container: { height: 1, flexGrow: 1, alignItems: "center", padding: 20 },
-  titulo: { fontSize: 20, fontWeight: "bold", marginBottom: 15 },
+  container: {
+    flexGrow: 1,
+    alignItems: "center",
+    padding: 20
+  },
+  titulo: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 15
+  },
   input: {
     width: "80%",
     padding: 10,
     borderWidth: 1,
     marginVertical: 5,
     borderRadius: 5,
-    borderColor: "#ccc",
+    borderColor: "#ccc"
   },
-  link: { color: "#2E8B57", marginTop: 10, fontWeight: "bold" },
-  erro: { color: "red", fontSize: 12, marginBottom: 10 },
-
+  link: {
+    color: "#2E8B57",
+    marginTop: 10,
+    fontWeight: "bold"
+  },
+  erro: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10
+  },
   botao: {
     backgroundColor: "#2E8B57",
     paddingVertical: 12,
@@ -484,14 +504,17 @@ const styles = StyleSheet.create({
     width: "80%",
     alignItems: "center",
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    elevation: 3,
+    elevation: 3
   },
   botaoTexto: {
     color: "white",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
 });

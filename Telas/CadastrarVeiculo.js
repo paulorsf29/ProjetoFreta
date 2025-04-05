@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Text, View, ScrollView, TextInput, Button, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import * as anex from 'react-native-image-picker';
 
 export default function CadastrarVeiculo({ navigation }) {
@@ -79,7 +79,7 @@ export default function CadastrarVeiculo({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Cadastro de Veículo</Text>
 
       <Text>Escolha o tipo de veículo:</Text>
@@ -139,16 +139,13 @@ export default function CadastrarVeiculo({ navigation }) {
 
       {mensagemErro ? <Text style={styles.erro}>{mensagemErro}</Text> : null}
       <Button title="Cadastrar" onPress={cadastrar} />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
   },
   title: {

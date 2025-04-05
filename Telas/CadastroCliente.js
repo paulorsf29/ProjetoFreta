@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 
 export default function CadastroCliente({ navigation }) {
   const [exibirCadastro, setExibirCadastro] = useState(false);
@@ -34,7 +34,8 @@ export default function CadastroCliente({ navigation }) {
   }
 
   return (
-    <ImageBackground source={require("../assets/Login_cliente.png")} style={styles.backgroundImage}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ImageBackground source={require("../assets/Login_cliente.png")} style={styles.backgroundImage}></ImageBackground>
       <View style={styles.overlay}>
         {!exibirCadastro ? (
           <>
@@ -43,6 +44,10 @@ export default function CadastroCliente({ navigation }) {
             <View style={styles.inputContainer}>
               <TextInput placeholder="EMAIL / CPF / CNPJ" style={styles.input} onChangeText={setEmailLogin} />
               <Text style={styles.erro}>{erroEmailLogin}</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
+              <Text style={styles.erro}>{erroSenhaLogin}</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenhaLogin} />
@@ -64,37 +69,39 @@ export default function CadastroCliente({ navigation }) {
           <Text style={styles.title}>Área de cadastro</Text>
         )}
       </View>
-    </ImageBackground>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    alignItems: "center",
+  },
   backgroundImage: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-    width: '100%',
-    height: '100%',
     position: 'absolute',
+    width: '100%',
+    height: '100%', // ou o tamanho que você quiser para o topo
+    resizeMode: 'cover',
+    zIndex: 0
   },
   overlay: {
-    flex: 1,
     backgroundColor: "#fff6e3",
-    alignItems: "center",
-    justifyContent: "center",
-    height: '65%',
-    position: 'absolute',
-    bottom: 0,
+    flexGrow: 1,
+    marginTop: '55%',
     width: '100%',
+    alignItems: "center",
     paddingTop: '5%',
     paddingBottom: '5%',
     borderTopRightRadius: 50,
+    zIndex: 1
   },
   title: {
     fontSize: 35,
     fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    width: "75%"
   },
   inputContainer: {
     width: "75%",
